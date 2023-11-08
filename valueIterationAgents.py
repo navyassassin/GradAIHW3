@@ -63,6 +63,14 @@ class ValueIterationAgent(ValueEstimationAgent):
         # Write value iteration code here
         "*** YOUR CODE HERE ***"
 
+        for i in range (self.iterations):
+            for state in self.mdp.getStates():
+                max_val = float("-inf")
+                for action in self.mdp.getPossibleActions(state):
+                    q_value = self.computeQValueFromValues(state, action)
+                    if q_value > max_val:
+                        max_val = q_value
+                    self.values[state] = max_val
 
     def getValue(self, state):
         """
@@ -77,7 +85,8 @@ class ValueIterationAgent(ValueEstimationAgent):
           value function stored in self.values.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        transitions = self.mdp.getTransitionStatesAndProbs(state, action)
+        sum([probability * (self.mdp.getReward(state, action, nextState) + self.discount * self.getValue(nextState)) for nextState, probability in transitions])
 
     def computeActionFromValues(self, state):
         """
@@ -89,7 +98,8 @@ class ValueIterationAgent(ValueEstimationAgent):
           terminal state, you should return None.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        def bellman(action): return self.computeQValueFromValues(state, action)
+        return max(self.mdp.getPossibleActions(state), key=bellman, default=None)
 
     def getPolicy(self, state):
         return self.computeActionFromValues(state)
