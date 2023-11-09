@@ -86,7 +86,7 @@ class ValueIterationAgent(ValueEstimationAgent):
         """
         "*** YOUR CODE HERE ***"
         transitions = self.mdp.getTransitionStatesAndProbs(state, action)
-        sum([probability * (self.mdp.getReward(state, action, nextState) + self.discount * self.getValue(nextState)) for nextState, probability in transitions])
+        return sum([probability * (self.mdp.getReward(state, action, nextState) + self.discount * self.getValue(nextState)) for nextState, probability in transitions])
 
     def computeActionFromValues(self, state):
         """
