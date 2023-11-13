@@ -20,8 +20,12 @@
 # value iteration.
 
 def question2():
+    # Our solution is to reduce the noise to zero
+    # This will ensure that the agent crosses the bridge
+    # because there is no longer a random chance of falling off the bridge
+    # the agent will move to the other side with the high-reward state
     answerDiscount = 0.9
-    answerNoise = 0.2
+    answerNoise = 0
     return answerDiscount, answerNoise
 
 def question3a():
