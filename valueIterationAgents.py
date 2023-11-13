@@ -64,13 +64,15 @@ class ValueIterationAgent(ValueEstimationAgent):
         "*** YOUR CODE HERE ***"
 
         for i in range (self.iterations):
+            counter = util.Counter()
             for state in self.mdp.getStates():
                 max_val = float("-inf")
                 for action in self.mdp.getPossibleActions(state):
                     q_value = self.computeQValueFromValues(state, action)
                     if q_value > max_val:
                         max_val = q_value
-                    self.values[state] = max_val
+                    counter[state] = max_val
+            self.values = counter
 
     def getValue(self, state):
         """
